@@ -164,12 +164,6 @@ streamlit run app.py
 
 ---
 
-## Revenue At Risk Formula
-
-Revenue At Risk = Balance × Churn Probability × 0.15
-
----
-
 ## Future Enhancements
 
 - Real-Time Churn Monitoring
