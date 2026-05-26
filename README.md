@@ -1,139 +1,186 @@
-# 🛡️ ChurnGuard — Customer Churn Prediction & Retention Analysis System
+# 🛡️ ChurnGuard – Customer Churn Prediction & Retention Analysis System
 
-## What This Project Does
+## Overview
 
-ChurnGuard is a Machine Learning system that predicts which customers are likely to leave (churn) and recommends actions to retain them. It works in **two modes**:
+ChurnGuard is a Machine Learning-based customer churn prediction and retention analysis platform that helps businesses identify customers who are likely to leave a service. The system predicts churn probability, classifies customers into risk categories, explains predictions using SHAP Explainable AI, and generates personalized retention recommendations.
 
-1. **Bank Mode** — Uses the pre-loaded Bank Customer Churn dataset
-2. **Custom Mode** — Upload your own churn dataset from any industry (Telecom, OTT, Insurance, E-Commerce, etc.)
+The platform supports both a preloaded Banking Churn Dataset and custom churn datasets from industries such as Telecom, OTT/Netflix, Insurance, SaaS, Subscription Services, and E-Commerce.
 
-The system trains two ML models (Random Forest + ANN), explains predictions using SHAP, and provides a polished interactive dashboard.
+Built using Machine Learning, Explainable AI (SHAP), and Streamlit to provide an end-to-end customer retention solution.
 
 ---
 
-## Setup Instructions
+## Features
 
-### Step 1: Install Dependencies
+- Customer Churn Prediction using Random Forest
+- Risk Classification (High, Medium, Low)
+- SHAP-Based Explainable AI
+- Single Customer Prediction
+- Batch Prediction via CSV Upload
+- Custom Dataset Training
+- Business Impact Estimation (Revenue At Risk for Banking datasets)
+- Personalized Retention Recommendations
+- Interactive Streamlit Dashboard
+- Multi-Industry Support
+
+---
+
+## System Workflow
+
+Customer Data  
+↓  
+Data Preprocessing  
+↓  
+Feature Encoding & Scaling  
+↓  
+Random Forest Model  
+↓  
+Churn Probability Prediction  
+↓  
+Risk Classification  
+↓  
+SHAP Explanation  
+↓  
+Retention Recommendations  
+
+---
+
+## Tech Stack
+
+| Technology | Purpose |
+|------------|----------|
+| Python | Core Programming |
+| Pandas | Data Processing |
+| NumPy | Numerical Computing |
+| Scikit-Learn | Machine Learning Models |
+| Random Forest | Churn Prediction |
+| SHAP | Explainable AI |
+| Streamlit | Dashboard Development |
+| Joblib | Model Storage |
+| Matplotlib | Data Visualization |
+
+---
+
+## Project Structure
+
+```text
+churnguard/
+│
+├── data/
+│   └── Churn_Modelling.csv
+│
+├── models/
+│   ├── random_forest.pkl
+│   ├── scaler.pkl
+│   ├── feature_columns.pkl
+│   ├── metrics.pkl
+│   └── shap_importance.png
+│
+├── src/
+│   ├── preprocess.py
+│   ├── train.py
+│   ├── shap_explain.py
+│   └── recommend.py
+│
+├── app.py
+├── requirements.txt
+└── README.md
+```
+
+---
+
+## Installation
+
 ```bash
 pip install -r requirements.txt
 ```
 
-### Step 2: Train the Models
+---
+
+## Train Models
+
 ```bash
 python -m src.train
 ```
 
-### Step 3: Run the Dashboard
+---
+
+## Run Dashboard
+
 ```bash
 streamlit run app.py
 ```
 
 ---
 
-## Folder Structure
-
-```
-miniproject-1/
-├── data/
-│   └── Churn_Modelling.csv      ← Kaggle Bank Customer Churn Dataset
-├── models/
-│   ├── random_forest.pkl         ← Trained Random Forest model
-│   ├── ann_model.pkl             ← Trained ANN model
-│   ├── scaler.pkl                ← Feature scaler
-│   ├── feature_columns.pkl       ← Feature column names
-│   ├── metrics.pkl               ← Model accuracy metrics
-│   └── shap_importance.png       ← SHAP feature importance chart
-├── src/
-│   ├── __init__.py               ← Makes src a Python package
-│   ├── preprocess.py             ← Data loading, encoding, scaling
-│   ├── train.py                  ← Trains RF + ANN, compares metrics
-│   ├── shap_explain.py           ← SHAP global + single explanations
-│   └── recommend.py              ← Risk levels + retention actions
-├── app.py                        ← Main Streamlit dashboard (4 pages)
-├── requirements.txt              ← Python dependencies
-└── README.md                     ← This file
-```
-
----
-
-## What Each File Does
-
-| File | Purpose |
-|------|---------|
-| `preprocess.py` | Loads CSV, drops useless columns, encodes text, scales numbers, splits data |
-| `train.py` | Trains Random Forest + ANN, prints accuracy/precision/recall/F1, saves models |
-| `shap_explain.py` | Generates SHAP feature importance chart and single-customer explanations |
-| `recommend.py` | Simple if-else rules for risk levels (HIGH/MEDIUM/LOW) and retention actions |
-| `app.py` | Streamlit dashboard with 4 pages: Home, Single Predict, Batch Predict, Custom Train |
-
----
-
 ## Dashboard Pages
 
-### Page 1: 🏠 Home
-- Project overview with key stats
-- Model comparison table (Accuracy, Precision, Recall, F1)
-- SHAP feature importance chart
+### 🏠 Home
+- Project Overview
+- Model Performance Metrics
+- SHAP Feature Importance
+- Dataset Statistics
 
-### Page 2: 🔍 Single Customer Prediction
-- Input form with sliders and dropdowns
-- Shows: Churn probability, Risk level, Revenue at risk
-- SHAP text explanation of why the customer may churn
-- Recommended retention actions
+### 🔍 Single Prediction
+- Customer Input Form
+- Churn Probability
+- Risk Level
+- SHAP Explanation
+- Retention Recommendations
 
-### Page 3: 📂 Batch Prediction
-- Upload CSV for bulk predictions
-- Filter by risk level (All / HIGH / MEDIUM / LOW / At Risk)
-- Control rows displayed (5 / 10 / 25 / 50 / All)
-- Top 10 highest-risk customers table
-- Total Revenue At Risk calculation
-- Download results as CSV
+### 📂 Batch Prediction
+- CSV Upload
+- Bulk Churn Prediction
+- Risk Filtering
+- Revenue At Risk Analysis
+- Download Results
 
-### Page 4: ⚙️ Train Custom Dataset
-- Upload any churn CSV from any industry
-- Auto-detects numerical and categorical columns
-- Select the target column
-- Trains a Random Forest model
-- Displays Accuracy, Precision, Recall, F1 Score
-
----
-
-## Key Formulas
-
-**Revenue At Risk** = Balance × Churn Probability × 0.15
-
-**Risk Levels:**
-- HIGH: Churn probability > 70%
-- MEDIUM: Churn probability > 40%
-- LOW: Churn probability ≤ 40%
+### ⚙️ Custom Dataset Training
+- Upload Any Churn Dataset
+- Select Target Column
+- Train Custom Model
+- View Accuracy Metrics
 
 ---
 
 ## Models Used
 
-### 1. Random Forest Classifier
-- 100 decision trees working together
-- Each tree votes → majority vote wins
-- Great for tabular/structured data
-
-### 2. ANN (Artificial Neural Network)
-- Architecture: Input → Dense(16, ReLU) → Dense(8, ReLU) → Output(Sigmoid)
-- Uses sklearn's MLPClassifier (same math as Keras, simpler code)
-- Learns patterns through backpropagation
+### Random Forest Classifier
+- Ensemble Learning Algorithm
+- Uses Multiple Decision Trees
+- Handles Structured Data Effectively
+- Provides Robust Churn Predictions
+- Supports Feature Importance Analysis
 
 ---
 
-## Technologies Used
+## Risk Classification
 
-| Technology | Purpose |
-|-----------|---------|
-| Python | Programming language |
-| Pandas | Data loading and manipulation |
-| Scikit-learn | ML models (Random Forest, ANN, Scaler) |
-| SHAP | Model explainability |
-| Streamlit | Web dashboard |
-| Matplotlib | Charts |
-| Joblib | Saving/loading models |
+| Churn Probability | Risk Level |
+|-------------------|------------|
+| > 70% | 🔴 High |
+| 40% – 70% | 🟡 Medium |
+| ≤ 40% | 🟢 Low |
 
 ---
 
+## Revenue At Risk Formula
+
+Revenue At Risk = Balance × Churn Probability × 0.15
+
+---
+
+## Future Enhancements
+
+- Real-Time Churn Monitoring
+- Automated Retention Campaigns
+- Cloud Deployment
+- Advanced Ensemble Models
+- Industry-Specific Recommendation Engines
+- Email and SMS Retention Automation
+- Customer Lifetime Value Prediction
+
+---
+
+## Project Goal
+The primary objective of ChurnGuard is to help organizations proactively identify customers at risk of churn, understand the key factors influencing customer behavior through Explainable AI, and enable data-driven retention strategies that improve customer loyalty, reduce churn, and increase business value.
